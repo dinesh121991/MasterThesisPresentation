@@ -1,0 +1,885 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 26/05/2010
+% edited by Bill Lampos
+%
+% Feel free to use (copy) the structure (latex formatting source code)
+% but not the content of this document.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[compress,red]{beamer}
+\mode<presentation>
+
+\usetheme{Warsaw}
+%\usetheme{Darmstadt}
+% other themes: AnnArbor, Antibes, Bergen, Berkeley, Berlin, Boadilla, boxes, CambridgeUS, Copenhagen, Darmstadt, default, Dresden, Frankfurt, Goettingen,
+% Hannover, Ilmenau, JuanLesPins, Luebeck, Madrid, Maloe, Marburg, Montpellier, PaloAlto, Pittsburg, Rochester, Singapore, Szeged, classic
+
+%\usecolortheme{lily}
+% color themes: albatross, beaver, beetle, crane, default, dolphin, dov, fly, lily, orchid, rose, seagull, seahorse, sidebartab, structure, whale, wolverine
+
+%\usefonttheme{serif}
+% font themes: default, professionalfonts, serif, structurebold, structureitalicserif, structuresmallcapsserif
+
+% pdf is displayed in full screen mode automatically
+%\hypersetup{pdfpagemode=FullScreen}
+
+% define your own colours:
+\definecolor{Red}{rgb}{1,0,0}
+\definecolor{Blue}{rgb}{0,0,1}
+\definecolor{Green}{rgb}{0,1,0}
+\definecolor{magenta}{rgb}{1,0,.6}
+\definecolor{lightblue}{rgb}{0,.5,1}
+\definecolor{lightpurple}{rgb}{.6,.4,1}
+\definecolor{gold}{rgb}{.6,.5,0}
+\definecolor{orange}{rgb}{1,0.4,0}
+\definecolor{hotpink}{rgb}{1,0,0.5}
+\definecolor{newcolor2}{rgb}{.5,.3,.5}
+\definecolor{newcolor}{rgb}{0,.3,1}
+\definecolor{newcolor3}{rgb}{1,0,.35}
+\definecolor{darkgreen1}{rgb}{0, .35, 0}
+\definecolor{darkgreen}{rgb}{0, .6, 0}
+\definecolor{darkred}{rgb}{.75,0,0}
+
+\xdefinecolor{olive}{cmyk}{0.64,0,0.95,0.4}
+\xdefinecolor{purpleish}{cmyk}{0.75,0.75,0,0}
+
+% \usepackage{beamerinnertheme_______}
+% inner themes include circles, default, inmargin, rectangles, rounded
+
+%\usepackage{beamerouterthemesmoothbars}
+% outer themes include default, infolines, miniframes, shadow, sidebar, smoothbars, smoothtree, split, tree
+
+\useoutertheme[subsection=false]{smoothbars}
+
+% to have the same footer on all slides
+%\setbeamertemplate{footline}[text line]{xxx xxx xxx}
+%\setbeamertemplate{footline}[text line]{} % or empty footer
+
+% include packages
+\usepackage{subfigure}
+\usepackage{multicol}
+\usepackage{amsmath}
+\usepackage{epsfig}
+\usepackage{graphicx}
+\usepackage[all,knot]{xy}
+\xyoption{arc}
+\usepackage{url}
+\usepackage{multimedia}
+\usepackage{hyperref}
+\usepackage{setspace}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{fancyvrb}
+\usepackage{fancyhdr}
+\usepackage{lipsum}
+
+%\usepackage{caption, copyrightbox}
+%\captionsetup{justification=centering, labelfont=sc, labelsep=endash}
+
+\usepackage{xparse}
+
+\setbeamercolor{alerted text}{fg=black,bg=} % alerted text colour
+
+\makeatletter
+\gdef\@imgsrcnavigation{}
+\setbeamertemplate{navigation symbols}{%
+  \makebox[\paperwidth]{%
+    \hspace*{1.5em}
+    \@imgsrcnavigation
+    \hfill}%
+}
+\DeclareDocumentCommand \imgsrc { s O {Image credit} +m }{%
+  \IfBooleanTF{#1}{%
+        \def\tempa{off}%
+        \def\tempb{#3}%
+        \ifx\tempa\tempb
+          \gdef\@imgsrcnavigation{}%
+        \else
+          \gdef\@imgsrcnavigation{{\tiny #2:\thinspace #3}}%
+        \fi
+  }{%
+        {\tiny #2:\thinspace #3}%
+  }%
+}
+\defbeamertemplate{navigation symbols}{dim byd}{%
+  \parbox{\paperwidth}{%
+        \hspace*{1.5em}%
+        \@imgsrcnavigation
+        \hfill\par\vskip .5em}}
+\newcommand*\navigationoff{\setbeamertemplate{navigation symbols}[dim byd]{}}
+\makeatother
+
+\setbeamerfont{footnote}{size=\tiny}
+
+\newenvironment{myenumerate}
+{ \begin{enumerate}
+    \setlength{\itemsep}{0.2cm}
+    \setlength{\parskip}{0.2 cm}
+    \setlength{\parsep}{0.2 cm}     }
+{ \end{enumerate}                  }
+%Page number
+
+%\addtobeamertemplate{frametitle}{\let\insertframetitle\insertsubsectionhead}{}
+%
+%\makeatletter
+%  \CheckCommand*\beamer@checkframetitle{\@ifnextchar\bgroup\beamer@inlineframetitle{}}
+%  \renewcommand*\beamer@checkframetitle{\global\let\beamer@frametitle\relax\@ifnextchar\bgroup\beamer@inlineframetitle{}}
+%\makeatother
+
+%\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{sidebar right}{}
+\setbeamertemplate{footline}{%
+\hfill\usebeamertemplate***{navigation symbols}
+\hspace{1cm}\insertframenumber{}/\inserttotalframenumber}
+
+\title{Towards multi-parameter resource selection for HPC platforms}
+\subtitle{Master Research Thesis}
+\author{Dineshkumar RAJAGOPAL\\
+(PDES - MoSIG)}
+\titlegraphic {
+{\includegraphics[scale=0.3,keepaspectratio]{logoINP.png}}\hfill\raisebox{1ex}{\includegraphics[scale=0.3,keepaspectratio]{bull-logo.jpg}}\hfill\raisebox{1ex}{\includegraphics[scale=0.2,keepaspectratio]{logoUJF.jpg}}
+}
+\institute{{\tiny advised by}\\ \vspace{.10cm}Yiannis GEORGIOU}
+\date{\scriptsize Big Data and Security(BDS) lab, BULL-SAS\\ \vspace{.10cm}September 1, 2015}
+
+\begin{document}
+
+\frame{
+	\titlepage
+}
+
+%\section[Outline]{}
+%\frame{\tableofcontents}
+
+\section{Introduction \& Motivation}
+\subsection{}
+\frame{\tableofcontents}
+\frame{\frametitle{HPC System Software Stack}
+\begin{enumerate}
+%\item RJMS is called as \textbf{workload manager, loadleveler, batch scheduler, etc} \\
+%\item RJMS's strategic position in the HPC system software stack\\
+\item Supercomputer is a \textbf{HPC Cluster} \\
+\item \textbf{Usage :} Computationally intensive tasks in \textbf{Scientific Experiments (Quantum mechanics, Weather Prediction, etc)} \\
+\centering \includegraphics[scale=.2,keepaspectratio]{image/HPC-RJMS-SS.png} \imgsrc{Yiannis georgiou,BULL}
+\end{enumerate}
+}
+
+
+\frame{\frametitle{What is RJMS?}
+\begin{enumerate}
+
+\item The goal of a \textbf{Resource and Job Management System (RJMS)} is
+to satisfy users demands for computation and \textbf{assign resources
+to user jobs} with an efficient manner\\
+\vspace{0.25cm}
+\item \textbf{RJMS} knows the \textcolor{red}{complete details} about the Jobs and Resources of HPC system\\
+\centering \includegraphics[scale=.4,keepaspectratio]{image/HPC-RJMS-role.png}
+\imgsrc{Yiannis georgiou,BULL}
+\end{enumerate}
+}
+
+\frame{\frametitle{Motivation of Resource Selection}
+\begin{myenumerate}
+\item \textcolor{red}{Resource selection} is an internal operation of scheduling
+\item Due to the the evolution of HPC platform and internal nodes architecture, Resource Management is \textcolor{red}{dynamic} and \textcolor{red}{complex}
+\vspace{0.25cm}
+\item Improper resource management \textcolor{red}{hides resources information} to lose global view of resources\\
+%\item LAYOUTS to manage resources properly and \textbf{reveal hidden information} \\
+\item Power wall problem and the increasing number of nodes in HPC systems, \textcolor{red}{energy efficiency} is the important criteria \\
+\item Multi-parameter resource selection to satisfy different criteria to \textcolor{red}{allocate resources perfectly}
+\end{myenumerate}
+}
+
+%\frame{
+%\frametitle {Multi-parameter Resource Selection}
+%\begin{enumerate}
+%\item Multi-parameter resource selection to satisfy different criteria to \textbf{allocate resources perfectly}\pause
+%\item How to \textbf{share a cake} to children perfectly? 
+%\item I want more cream, fruit and flower \\
+%\vspace{0.25 cm}
+%\centering \includegraphics[scale=1.4,keepaspectratio]{image/cake03.jpg}
+%\end{enumerate}
+%}
+\section{Background	}
+\subsection{Related Works}
+%\frame {
+%\frametitle{	Related Works}
+%\begin{enumerate}
+%\item Basic \textbf{architecture} is same, But \textbf{implementation} has different objective \pause \\
+%\item OAR used high level tools(Perl, Database) for flexible and scalable system implementation \\
+%\item SLURM used(C) custom implementation for scalable and performance oriented system \pause \\
+%\item OAR managing resources hierarchically in database for flexible resource allocation \\
+%\item SLURM managing resources linearly in custom data structure for performance and scalable resouce selection \\
+%\item OAR resource selection by SQL query (generic implementation)\\
+%\item SLURM resource selection by custom implementation of specific algorithm 
+%\end{enumerate}
+%}
+\frame {
+\frametitle{	Related Works}
+	\resizebox{\linewidth}{!}{
+	% Resize table to fit within \linewidth horizontally
+	\begin{Huge}
+  \begin{tabular}{|p{6cm}|p{7cm}|p{7cm}|p{7cm}|l c c c}
+    \hline
+    Feature & OAR & SLURM & FLUX \\    	
+    \hline
+    Programming Tools & Perl, MySQL & C, autoconf & C, autoconf \\ \hline
+    Puropse   & Scalable \& Flexible & Scalable, Flexible \& Performance & Scalable, Flexible \& Distributed resource \& job management  \\ \hline
+    Resource Management & Flat Hierarchical \& managed in the Databse & Linear \& Managed in its own data structure\textcolor{red}{(bitmap \& list)}& Dynamic \& Flat hierarchical resource management framework\\ \hline
+    Resource Selection & Best-fit for Intel cluster architecture, \textcolor{red}{SQL querry} to perform selection  & Best-fit for different cluster architecture, \textcolor{red}{custom implementation of algorithm} & \textcolor{red}{Next generation RJMS}, only framework core functionality developed\\  \hline
+    Topology Awareness & Yes & Yes & Not Yet implemented \\ \hline
+    Internal Resource Consumption & Yes & Yes & Not Yet implemented \\ \hline
+    
+  \end{tabular}
+  	
+	\end{Huge}
+  }
+}
+
+\subsection{SLURM Architecture}
+\frame{\tableofcontents[ 
+currentsection,
+currentsubsection,
+sectionstyle=show/shaded, 
+subsectionstyle=show/shaded, 
+]}
+
+\frame{ 
+\frametitle{SLURM Architecture}
+\begin{enumerate}
+\item SLURM is an \textbf{open source RJMS} for Supercomputer\\
+\vspace{0.1cm}
+\end{enumerate}
+\includegraphics[scale=0.31,keepaspectratio]{image/SLURM-RJMS-Archi.png}
+\imgsrc{Yiannis georgiou,BULL}
+}
+
+\frame{ 
+\frametitle{Batch Scheduling}
+\begin{enumerate}
+\item \textbf{Scheduling behaviour} depends on the Job scheduler and Resource selector behaviour \\
+\item \textbf{Resource Selection} is an internal operation of scheduling
+\end{enumerate}
+\includegraphics[scale=0.32,keepaspectratio]{image/Schedule-Cycle.pdf}
+
+}
+
+
+\frame{ 
+\frametitle{Resource Selection Cycle}
+\begin{enumerate}
+\item \textcolor{red}{Select} and \textcolor{red}{Topology} plugin work together to allocate \textbf{topology aware resources }\\
+\item Topology plugin has information of \textcolor{red}{Switch and Node relationship in bitmap}, so comparison of two nodes list is very fast and scalable with less memory foot-print\\ 
+\centering \includegraphics[scale=0.3,keepaspectratio]{image/SLURM-scedule-loop-cropped.png} 
+\imgsrc{Don Lipari, LLNL}
+\end{enumerate}
+}
+
+%\frame { 
+%\frametitle{Resource Selection Plugin APIs}
+%\begin{verbatim}
+%/* slurmctld daemon starts, recover state */
+%if ((select_p_node_init)()     != SLURM_SUCCESS) ||
+%    (select_p_block_init)()    != SLURM_SUCCESS) ||
+%    (select_p_state_restore)() != SLURM_SUCCESS) ||
+%    (select_p_job_init)()      != SLURM_SUCCESS)) {
+%   abort() 
+%}   
+%/* wait for job arrival */
+%if (select_p_job_test(all available nodes) != SLURM_SUCCESS) {
+%   if (select_p_job_test(all configured nodes) != SLURM_SUCCESS)
+%      /* reject the job and tell the user it can never run */
+%   else
+%      /* leave the job queued for later execution */
+%} else 
+%{  
+%/* update job's node list and node bitmap */
+%   if (select_p_job_begin() != SLURM_SUCCESS)
+%      /* leave the job queued for later execution */
+%   else {
+%      while (!select_p_job_ready())
+%	 wait
+%      /* execute the job */
+%	/* wait for job to end or be terminated */
+%      select_p_job_fini()
+%    }
+%}
+%
+%/* wait for slurmctld shutdown request */
+%select_p_state_save()
+%\end{verbatim} 
+%}
+
+\subsection{LAYOUTS Framework}
+\frame{\tableofcontents[ 
+currentsection,
+currentsubsection,
+sectionstyle=show/shaded, 
+subsectionstyle=show/shaded, 
+]}
+
+\frame{\frametitle{LAYOUTS Framework}
+\begin{enumerate}
+\item LAYOUTS is the \textcolor{red}{new resource management framework} in \textbf{SLURM v15.08} \\
+\vspace{0.25cm}
+%\item \textbf{Terminology:}
+%	\begin{itemize}
+%		\item LAYOUTS - Framework \\
+%		\item Layout(s) or layout(s) - Resource management plugin \\
+%	\end{itemize} 
+%\vspace{0.25cm}
+\item \textcolor{red}{Any type} of entities can be manageable\\ 
+\vspace{0.25cm}
+\item Entities relation is \textcolor{red}{tree} (Inspiration of OAR resource management)\\ 
+\vspace{0.25cm}
+\item Entity attribute is called in LAYOUTS \textcolor{red}{key}, stored in the \textbf{hash key-value} format \\ 
+\vspace{0.25cm}
+\item Keeping consistency among attributes values across entities
+based on \textcolor{red}{keys inheritance relations} \\
+\item Entities information is available in the different level of resource hierarchy to \textcolor{red}{reveal hidden information} of resources
+\end{enumerate}
+}
+\frame{\frametitle{LAYOUTS Entity Keys and Key Relation}
+\begin{enumerate}
+\item If all the cores are allocated in the node, then the \textcolor{red}{node is allocated} \\
+\end{enumerate}
+\centering \includegraphics[scale=0.33,keepaspectratio]{image/Key-Relation1.pdf}
+}
+
+\frame{\frametitle{LAYOUTS Entity Keys and Key Relation(ctd...)}
+\begin{enumerate}
+\item If all the cores are allocated in the node, then the \textcolor{red}{node is allocated} \\
+\end{enumerate}
+\centering \includegraphics[scale=0.33,keepaspectratio]{image/Key-Relation2.pdf}
+}
+
+
+\begin{frame}
+\frametitle{LAYOUTS Basic APIs}
+\begin{myenumerate}
+\item \textbf{layouts\_entity\_get\_kv()} - \textbf{get} key value
+\item \textbf{layouts\_entity\_set\_kv()} - \textbf{set} key value
+\item \textbf{layouts\_entity\_pull\_get\_kv()} - \textcolor{red}{update} key relation value and \textbf{get} key value 
+\item \textbf{layouts\_entity\_set\_push\_kv()} - \textbf{set} key value and \textcolor{red}{update} key relation  
+\end{myenumerate}
+\end{frame}
+
+%\centering \includegraphics[scale=0.5,keepaspectratio]{image/aaaa}
+
+
+%\begin{SaveVerbatim}{CodeBoxXML}
+%<node>
+% <name>cuzco-2</name>
+% <sockets>socket[0-1]</sockets>
+% <AllocatedCores>0
+% </AllocatedCores> 
+%</node>
+%
+%<socket>	 ...
+%</socket>
+%
+%<core>   ...
+%</core>
+%\end{SaveVerbatim}
+%\begin{SaveVerbatim}{CodeBoxLAY} 
+%Entity=cuzco-2 type=Node
+% AllocatedSumCoresInNode=0
+%  Enclosed=socket[0-1]  
+%Entity=socket0 type=Socket
+% AllocatedSumCores=0
+%  Enclosed=core[0-7]
+%  Entity=socket1 type=Socket
+% AllocatedSumCores=0
+%  Enclosed=core[8-15]
+%Entity=core[0-15] type=Core
+% AllocatedCoreCount=0
+%\end{SaveVerbatim}
+%
+%\begin{frame}[fragile]
+%  \frametitle{XML and LAYOUTS comparison}
+%
+%  \begin{columns}
+%    \begin{column}{.5\linewidth}
+%    \UseVerbatim{CodeBoxXML}
+%    \vspace{1 cm}
+%    \textbf{Access :} Xpath
+%    \end{column}
+%
+%	\begin{column}{.5\linewidth}
+%    \UseVerbatim{CodeBoxLAY}
+%    \vspace{1 cm}
+%    \textbf{Access :} LAYOUTS APIs
+%    \end{column}
+%  \end{columns}
+%\end{frame}
+%
+%\begin{frame}[containsverbatim]
+%\frametitle{XML and LAYOUTS comparison}
+%
+%\begin{minipage}{0.3\textwidth}
+%\begin{verbatim}
+%	<node>
+%		<name>cuzco-2</name>
+%		<sockets>2</sockets>
+%		<cores>16</cores>
+%		<threads>1</threads>
+%	</node>	
+%\end{verbatim}
+%\end{minipage}
+%
+%\begin{minipage}{0.4\textwidth}
+%\begin{verbatim}
+%Entity=Cluster Type=Center
+% AllocatedSumCoresInCluster=0 
+% Enclosed=virtual[0-5039] 
+%Entity=cuzco-2 type=Node
+% AllocatedSumCoresInNode=0
+%  Enclosed=socket[0-1]  
+%Entity=socket0 type=Socket
+% AllocatedSumCores=0
+%  Enclosed=core[0-7]
+%Entity=core[0-15] type=Core
+% AllocatedCoreCount=0
+%\end{verbatim}
+%\end{minipage}
+%\end{frame}
+%
+%%}
+
+%\frame{\frametitle{LAYOUTS APIs with Description}
+%LAYOUTS APIs for plugin developers.
+%\begin{enumerate}
+%\item \textbf{layouts\_entity\_get\_kv()} Get the value of the key for the specific entity and layout. 
+%\item \textbf{layouts\_entity\_set\_kv()} Set the value to the key for the specific entity and layout.
+%\item \textbf{layouts\_entity\_get\_mkv()} Get the multiple keys value for the specific entity and layout.
+%\item \textbf{layouts\_entity\_pull\_get\_kv()} Get the updated key value for the specific entity and layout by pulling the values based on the keys aggregate function relations.
+%\item \textbf{layouts\_entity\_set\_push\_kv()} Set the key value for the specific entity, layout. Push the value change to the related keys based on the keys aggregate function relations.
+%\item \textbf{layouts\_entity\_pull()} Follow the key relations to update all the keys. If the key does not have relation, than it will leave without any changes.
+%\end{enumerate}
+%}
+
+\section{Resource Selection}
+\subsection{LAYOUTS based consumable resource selection}
+\frame{\tableofcontents[ 
+currentsection,
+currentsubsection,
+sectionstyle=show/shaded, 
+subsectionstyle=show/shaded, 
+]}
+
+
+
+\frame{\frametitle{Cons\_res\_layout Implementation}
+\setbeamercolor{alerted text}{fg=red,bg=}
+\usebeamercolor{normal text}
+\begin{enumerate}
+\item Cons\_res is the consumable resource selection plugin
+	\begin{itemize}
+	\item \textbf{Best-fit} to select \textbf{minimum satisfiable resources than maximum satisfiable resources} \\
+	\item \textbf{Topology aware} to increase the user application performance\\
+	\item \textbf{Cons\_res} consumes internal resources of nodes(cores, memory, etc)
+	\item \textbf{Algorithm 1} in the \textbf{section 4.1} of the \textbf{report} discussed the algorithm step by step \\
+	\item \textbf{Cons\_res} used \textbf{list and bitmap} to keep resource information \pause
+	\end{itemize}
+\vspace{0.5cm}
+\item \alert<+>{Cons\_res\_layout} is the \textbf{new} consumable resource selection plugin based on LAYOUTS
+	\begin{itemize} 
+	\item Naive implementation of \textbf{cons\_res\_layout} plugin performance
+was \textbf{25 times slower}
+	\item \textbf{Second version} of the cons\_res\_layout code used a combination of \textbf{bitmaps, layouts} to reach the performance of default cons\_res code	\end{itemize}
+\end{enumerate}
+}
+
+
+
+\frame{
+\frametitle{Layouts Interrelation}
+\includegraphics[scale=0.34,keepaspectration]{image/Lay-relation-2.pdf}
+}
+
+\frame{
+\frametitle{Entity Global View}
+\includegraphics[scale=0.34,keepaspectration]{image/Lay-relation-2-1.pdf}
+}
+%\frame{\frametitle{Cons\_res\_layout Implementation (Ctd..)}
+%\begin{enumerate}
+%\item LAYOUTS plugin details for resource management\\
+%\item \textbf{Cons\_res\_partition} layout plugin - Internal nodes details
+%	\begin{itemize}
+%	\item \textbf{Nodes} - Physical nodes in HPC
+%	\item \textbf{Partitions} - Logical group of nodes \pause
+%	\end{itemize}
+%\vspace{0.5cm}
+%\item \textbf{Cons\_res\_topology} layout plugin - Cluster topology details
+%	\begin{enumerate}
+%		\item Topology details needed for \textbf{topology aware resource selection}
+%		\item Tree(Normal) topology only supported
+%	\end{enumerate}
+%\end{enumerate}
+%}
+
+
+%\frame{\frametitle{Cons\_res\_layout Resource Selection Algorithm}
+%\begin{enumerate}
+%\item \textbf{Cons\_res} same algorithm is followed, \textbf{without any change}
+%\item \textbf{Bestfit} to reduce fragmentation \\
+%\item \textbf{Topology aware} to increase the user application performance \\
+%\item \textbf{Algorithm 1} in the \textbf{section 4.1} of the \textbf{report} discussed the algorithm step by step \\ \pause
+%\vspace{0.5cm}
+%\item Naively all the operations are performed by using LAYOUTS framework
+%\item Naive implementation of cons\_res\_layout plugin performance was \textbf{25 times slower}
+%\end{enumerate}
+%}
+
+%\frame{\frametitle{LAYOUTS New APIs with Description}
+%\begin{enumerate}
+%\item \textbf{layouts\_entity\_get\_parent\_name()} Get the parent name of the given entity name, but the root returns NULL.
+%\item \textbf{layouts\_multi\_entity\_set\_kv()} Set multiple entities specific key by values. The entity name is given as a string to parse(e.g node[20-100,110]). It is the wrapper function of layouts\_entity\_set\_kv() and follows the same convention of \textbf{layouts\_entity\_get\_mkv()}.
+%\item \textbf{layouts\_multi\_entity\_get\_kv()} Get multiple entities specific key$'$s values.
+%\item \textbf{layouts\_entity\_pull\_get\_skv()} Get the updated value of specific key by pulling the specific key$'$s value. layouts\_entity\_pull() and layouts\_entity\_pull\_get\_kv() pull all the keys value so it would be costly operation.
+%\item \textbf{layouts\_entity\_set\_push\_skv()} Set and update value of specific key only and push the changes to the related keys only. 
+%\end{enumerate}
+%}
+
+\subsection{Multi-parameter resource selection}
+\frame{\tableofcontents[ 
+currentsection,
+currentsubsection,
+sectionstyle=show/shaded, 
+subsectionstyle=show/shaded, 
+]} 
+
+\frame{\frametitle{Multi-parameter Resource Selection Algorithm}
+\begin{enumerate}
+\item \textbf{Bestfit energy efficiency} to reduce energy consumption in the \textbf{Heterogeneous power consuming cluster} \\
+\begin{itemize}
+\item Minimum power consuming allocated nodes \\
+\item Already allocated nodes than idle nodes \\
+\item Minimum power consuming idle nodes \\
+\end{itemize}
+\item \textbf{Topology aware} to increase the user application performance \\
+\item \textbf{Algorithm 2} in the \textbf{section 4.2} of the \textbf{report} discussed the algorithm step by step \\
+\vspace{0.75cm}
+\item \textbf{Advantage:} Multi-parameter(\textcolor{red}{Cons\_res\_power}) resource selection supports  \textbf{user$'$s performance} and \textbf{server$'$s energy} criterias
+\end{enumerate}
+}
+
+\frame{
+\frametitle{Layouts Interrelation}
+\includegraphics[scale=0.34,keepaspectration]{image/Lay-relation-2.pdf}
+}
+
+\frame{
+\frametitle{Layouts Interrelation(Ctd...)}
+\includegraphics[scale=0.34,keepaspectration]{image/Lay-relation-3.pdf}
+}
+
+\frame{
+\frametitle{Entity Global View}
+\includegraphics[scale=0.34,keepaspectration]{image/Lay-relation-3-1.pdf}
+}
+
+%\frame{\frametitle{Cons\_res\_power Implementation}
+%\begin{myenumerate}
+%\item \textbf{Cons\_res\_power} is the enhancement of the \textbf{cons\_res\_layout} plugin \pause
+%\item New layout plugin \textbf{topology\_power} for power details \pause
+%\item \textbf{Cons\_res\_partition} and \textbf{Cons\_res\_topology} layout plugins 
+%\end{myenumerate}
+%}
+
+\section{Experiments \&	 Performance Evaluation}
+\subsection{Cons\_res\_layout vs Cons\_res Analysis}
+\frame{\tableofcontents[ 
+currentsection,
+currentsubsection,
+sectionstyle=show/shaded, 
+subsectionstyle=show/shaded, 
+]}
+\frame{\frametitle{Experiment Environment}
+\begin{myenumerate}
+\item Emulate real HPC environment using \textcolor{red}{--enable-multiple-slurmd} option
+\item Synthetic workload of \textcolor{red}{Enhanced System Performance}(ESP) Benchmark 
+\item Use \textcolor{red}{sleep, hostname} like simple application
+\item \textcolor{red}{Standard Workload Format}(SWF) to store workload
+\item BULL CUZCO cluster 17 nodes to emulate \textcolor{red}{5040 nodes} HPC cluster
+\item Each node configured as \textcolor{red}{2 sockets, 16 cores and 32GB of memory}, more details are in \textcolor{red}{Appendix C.1} 
+\end{myenumerate}
+}
+
+\frame{
+\frametitle{Topology Experiment Environment}
+\begin{enumerate}
+\item \textcolor{red}{Homogeneous} cluster environment
+\item Simple tree topology to have \textcolor{red}{4 leaf switches} and \textcolor{red}{3 levels}   \\
+\end{enumerate}
+\centering \includegraphics[scale=0.33,keepaspectratio]{image/Topology-configuration.pdf}
+}
+
+\begin{frame}[plain]
+\frametitle{Cons\_res vs Cons\_res\_layout system utilization}
+\begin{enumerate}
+\item System utilization is almost same, because of following \textcolor{red}{same policy} \\
+\end{enumerate}
+\makebox[\linewidth]{%
+  \includegraphics[scale=0.25,keepaspectratio,angle=-90]{image/analysis/cons_res_system_util.eps}%
+  \includegraphics[scale=0.25 ,keepaspectratio,angle=-90]{image/analysis/cons_res_layout_system_util.eps}}
+\end{frame}
+
+%\frame{\frametitle{Cons\_res System Utilization}
+%\center \includegraphics[scale=0.4,keepaspectratio,angle=-90]{image/analysis/cons_res_system_util.eps}
+%}
+%
+%\frame{\frametitle{Cons\_res\_layout System Utilization}
+%\center \includegraphics[scale=0.4,keepaspectratio,angle=-90]{image/analysis/cons_res_layout_system_util.eps}
+%}
+
+\frame{\frametitle{Individual Jobs Performance Comparison}
+\begin{enumerate}
+\item Due to large number of entity update in \textcolor{red}{Cons\_res\_layout} plugin, individual resource selection time increased \textcolor{red}{twice}
+\end{enumerate}
+\center \includegraphics[scale=0.55,keepaspectratio]{image/analysis/cr-crl-time-micro.eps}
+}
+
+\frame{\frametitle{Waiting Time for 2 Plugins}
+\center \includegraphics[scale=0.55,keepaspectratio]{image/analysis/cdf-WT-CR-CRL.pdf}
+}
+
+%\frame{\frametitle{Execution Time for 2 Plugins}
+%\center \includegraphics[scale=0.55,keepaspectratio]{image/analysis/cdf-exec-CR-CRL.pdf}
+%}
+
+
+%\frame{
+%\frametitle{Exexcution time of 2 Plugins}
+%\includegraphics[scale=0.5,keepaspectratio]{image/analysis/cdf-exec-SLURM-cr_crlp-eps-converted-to.pdf}
+%}
+
+
+\subsection{Multi-parameter vs Cons\_res Analysis}
+\frame{\tableofcontents[ 
+currentsection,
+currentsubsection,
+sectionstyle=show/shaded, 
+subsectionstyle=show/shaded, 
+]}
+
+\frame{
+\frametitle{Energy Experiment Environment}
+\begin{enumerate}
+\item \textbf{Heterogeneous power consuming nodes} cluster environment
+\item Simple tree topology to have \textbf{4 leaf switches} and \textbf{3 levels}
+\item \textbf{Homogeneous power consuming nodes} within leaf switches
+\end{enumerate}
+\includegraphics[scale=0.33,keepaspectratio]{image/Topology-power.pdf}
+
+}
+
+\frame{\frametitle{Cons\_res\_power System Utilization}
+\center \includegraphics[scale=0.4,keepaspectratio,angle=-90]{image/analysis/CRLP_SU.pdf}
+}
+
+\frame{\frametitle{Energy Efficiency}
+\textbf{Cons\_res\_power} energy consumption is less than Cons\_res by \textcolor{red}{3.8\% (51252370 Joules)} for same job workload
+\includegraphics[scale=0.315, keepaspectratio]{image/analysis/cr_crl_31_ju.eps}
+%\begin{enumerate}
+%\item \textbf{Cons\_res\_power} energy consumption is less than \textbf{Cons\_res} by \textbf{3.8 \%}
+%\end{enumerate}
+
+}
+
+%\frame{\frametitle{Cons\_res Energy Consumption}
+%\begin{enumerate}
+%\item For experiment, Heterogeneous cluster configured \textbf{homogeneous power consuming nodes} within the leaf switches
+%\end{enumerate}
+%\center \includegraphics[scale=0.19,keepaspectratio]{image/analysis/cr_31_ju.png}
+%}
+
+%\frame{\frametitle{Cons\_res\_power Energy Consumption}
+%\center \includegraphics[scale=0.19,keepaspectratio]{image/analysis/crl_pl_ju_31.png}
+%}
+
+\frame{\frametitle{Individual Jobs Performance Comparison}
+\begin{enumerate}
+\item \textbf{Cons\_res\_power} individual job resource selection time increased thrice than \textbf{cons\_res}
+\end{enumerate}
+\center \includegraphics[scale=0.55,keepaspectratio]{image/analysis/cr-crl-crlp-time-micro-3.eps}
+}
+
+\frame{\frametitle{Waiting Time for 3 Plugins}
+\center \includegraphics[scale=0.55,keepaspectratio]{image/analysis/cdf-WT-cr-crl-crlp-wt.pdf}
+}
+
+\section{Conclusion \& FW}
+\subsection{Conclusion}
+\frame{\tableofcontents[ 
+currentsection,
+currentsubsection,
+sectionstyle=show/shaded, 
+subsectionstyle=show/shaded, 
+]}
+\frame{\frametitle{Conclusion}
+\begin{enumerate}
+\item SLURM \textcolor{red}{plugin enhancement} is easier using LAYOUTS resource management framework 
+\item New \textcolor{red}{Cons\_res\_layout} resource selection plugin developed using LAYOUTS to support \textcolor{red}{hierarchical resource management} in SLURM \pause
+\item Cons\_res\_layout and cons\_res plugin \textcolor{red}{system utilisation and throughput} is \textcolor{red}{almost same} and \textcolor{red}{minimal increase} of resource selection performance overhead \pause
+\item Multi-parameter resource selection policy adapted in \textcolor{red}{cons\_res\_layout} plugin 
+\item Energy consumption of multi-parameter resource selection \textcolor{red}{ reduced by 3.8 \%} and \textcolor{red}{minimal increase} of resource selection performance overhead
+\end{enumerate}
+}
+
+\subsection{Future Work}
+
+\frame{\frametitle{Future Work}
+\setbeamercolor{alerted text}{fg=red,bg=}
+\usebeamercolor{normal text}
+\begin{myenumerate}
+\item Support \textcolor{red}{partition} entities and \textcolor{red}{fat-tree} topology in the layouts plugins 
+\item Adapt cons\_res\_power to support real energy values from \textcolor{red}{RAPL} or \textcolor{red}{IPMI} technique 
+\item Include \textcolor{red}{temperature} criteria in the resource selection 
+\item Experiment to measure
+	\begin{itemize}
+	\item Perform \textcolor{red}{scalability experiments} with large number of nodes
+	\item Instantaneous job \textcolor{red}{throughput}
+	\item Instantaneous number of \textcolor{red}{job types} allocated
+	\item Cons\_res\_ power job waiting time is better than \textcolor{red}{powercapping} only approach
+%	\item Resource fragmentation calculation
+	\end{itemize}
+\end{myenumerate}
+}
+\section*{}
+\frame{
+    \begin{center}
+        \huge
+        Thank you ..\\
+        \vspace{0.25cm}
+        Any questions?
+    \end{center}
+}
+
+\appendix
+
+\begin{frame}[noframenumbering]
+\frametitle{SLURM Entities}
+\begin{enumerate}
+\item SLURM \textbf{resource management} entities \\
+\item \textbf{Job management} entities are not considered \\
+\vspace{0.5cm}
+\centering \includegraphics[scale=0.33,keepaspectratio]{image/SLURM-Entity.pdf}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[noframenumbering]
+\frametitle{LAYOUTS Internal Architecture}
+\includegraphics[scale=0.35,keepaspectratio]{image/LAYOUT-Arch.png}
+\end{frame}
+
+\begin{frame}[noframenumbering]
+\frametitle{LAYOUTS Aggregate Keys}
+\begin{itemize}
+\item \textcolor{red}{Child aggregate functions} - Specific operations performed on the children key value and update the calculated value in the parent$'$s key\\ \vspace{0.01em} 
+	\begin{enumerate}
+		\item KEYSPEC\_UPDATE\_CHILDREN\_SUM   \\
+		\item KEYSPEC\_UPDATE\_CHILDREN\_AVG   \\
+		\item KEYSPEC\_UPDATE\_CHILDREN\_MIN   \\
+		\item KEYSPEC\_UPDATE\_CHILDREN\_MAX   \\
+		\item KEYSPEC\_UPDATE\_CHILDREN\_COUNT \\
+		\item KEYSPEC\_UPDATE\_CHILDREN\_MASK  \\
+	\end{enumerate}
+\item \textcolor{red}{Parent aggregate functions} 
+	\begin{enumerate}
+		\item KEYSPEC\_UPDATE\_PARENTS\_SUM    \\
+		\item KEYSPEC\_UPDATE\_PARENTS\_AVG    \\
+		\item KEYSPEC\_UPDATE\_PARENTS\_MIN    \\
+		\item KEYSPEC\_UPDATE\_PARENTS\_MAX    \\
+		\item KEYSPEC\_UPDATE\_PARENTS\_FSHARE \\
+		\item KEYSPEC\_UPDATE\_PARENTS\_MASK   \\
+	\end{enumerate}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[noframenumbering]
+\frametitle{LAYOUTS New APIs}
+
+New APIs developed for \textbf{new functionality} and \textbf{performance} purpose.
+\vspace{0.25cm}
+\begin{myenumerate}
+\item \textbf{layouts\_entity\_get\_parent\_name()} 
+\item \textbf{layouts\_multi\_entity\_set\_kv()} - set \textbf{entity} same key
+\item \textbf{layouts\_multi\_entity\_get\_kv()} 
+\item \textbf{layouts\_entity\_pull\_get\_skv()} - update \textbf{specific key} and its relations
+\item \textbf{layouts\_entity\_set\_push\_skv()}  
+\end{myenumerate}
+\end{frame}
+
+
+\begin{frame}[noframenumbering]
+ \frametitle{Cons\_res\_layout Performance Improvements}
+\begin{myenumerate}
+\item Node and Core list is maintained in the \textbf{bitmap} data structure to compare and match another node list faster
+\item LAYOUTS to access \textbf{entities keys} in the different levels
+\pause
+\item \textbf{layouts\_multi\_entity\_set\_kv} - transfer information from one layout to another
+\pause 
+\item \textbf{layouts\_entity\_pull\_get\_skv} - update only specific key values
+\pause 
+\item Topology aware resource selection algorithm was adapted for \textbf{normal tree} topology 
+\end{myenumerate}
+\end{frame}
+
+\begin{frame}[noframenumbering]
+\frametitle{LAYOUTS Entity Data Management}
+
+\begin{columns}[t]
+\column{.5\textwidth}
+\centering
+\includegraphics[width=5cm,height=4cm,keepaspectratio]{image/Entity-global-1.pdf}\\
+\centering
+\includegraphics[width=5cm,height=4cm,keepaspectratio]{image/Entity-global-3.pdf}\\
+\column{.5\textwidth}
+\centering
+\includegraphics[width=5cm,height=4cm,keepaspectratio]{image/Entity-global-2.pdf}
+\begin{enumerate}
+\item Entity and entity keys are in hash data structure and access very fast\\
+\item Entity has \textcolor{red}{different layouts plugin} information to view entity \textcolor{red}{different perspective} \\
+\end{enumerate}
+\end{columns}
+
+%\includegraphics[scale=0.3,keepaspectratio]{image/Layout-entity.pdf}
+%\imgsrc{Francois Chevallier, BULL}
+\end{frame}
+
+\begin{frame}[noframenumbering]
+\frametitle{Cons\_res\_layout Architecture}
+\includegraphics[scale=0.34,keepaspectration]{image/cons_res_layout-arch.pdf}
+\end{frame}
+
+\begin{frame}[noframenumbering]
+\frametitle{Cons\_res\_power Architecture}
+\centering \includegraphics[scale=0.32,keepaspectration]{image/cons_res_power-arch.pdf}
+\end{frame}
+
+\begin{frame}[noframenumbering]
+\frametitle{Conclusion I}
+\begin{myenumerate}
+\item SLURM \textcolor{red}{plugin enhancement} is easier using LAYOUTS resource management framework \pause
+\item \textcolor{red}{Cons\_res\_layout} resource selection plugin developed using LAYOUTS \pause
+\item LAYOUTS \textcolor{red}{new APIs} developed to \textcolor{red}{increase performance} for multiple updates \pause
+\item Cons\_res\_layout and cons\_res plugin \textcolor{red}{system utilisation and throughput} is \textcolor{red}{same} \pause
+\item Cons\_res\_layout individual resource selection performance overhead was \textcolor{red}{increased twice} than cons\_res plugin 
+\item Cons\_res\_layout \textcolor{red}{job waiting time increased}, due to individual performance of resource selection
+\end{myenumerate}
+\end{frame}
+
+\begin{frame}[noframenumbering]
+\frametitle{Conclusion II}
+\begin{myenumerate}
+\item Multi-parameter resource selection policy implemented in \textcolor{red}{Cons\_res\_power} plugin \pause
+\item Cons\_res\_power plugin achieved both \textcolor{red}{ application performance} and  \textcolor{red}{server energy efficiency} \pause
+\item Energy consumption of multi-parameter resource selection \textcolor{red}{ reduced by 3.8 \%} \pause
+\item Cons\_res\_power individual resource selection performance overhead was \textcolor{red}{increased thrice} than cons\_res plugin
+\item Cons\_res\_power \textcolor{red}{job waiting time increased}, due to individual performance of resource selection
+\end{myenumerate}
+\end{frame}
+
+
+\end{document} 

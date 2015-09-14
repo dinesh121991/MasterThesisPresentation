@@ -1,0 +1,15 @@
+\frametitle{XML and LAYOUTS comparison}
+
+  \begin{columns}
+    \begin{column}{.5\linewidth}
+    \UseVerbatim{CodeBoxXML}
+    \vspace{1 cm}
+    \textbf{Access :} Xpath
+    \end{column}
+
+\begin{column}{.5\linewidth}
+    \UseVerbatim{CodeBoxLAY}
+    \vspace{1 cm}
+    \textbf{Access :} LAYOUTS APIs
+    \end{column}
+  \end{columns}

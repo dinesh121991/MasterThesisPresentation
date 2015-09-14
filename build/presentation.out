@@ -1,0 +1,14 @@
+\BOOKMARK [2][]{Outline0.1}{Introduction \046 Motivation}{}% 1
+\BOOKMARK [2][]{Outline0.2}{Background }{}% 2
+\BOOKMARK [3][]{Outline0.2.1.6}{Related Works}{Outline0.2}% 3
+\BOOKMARK [3][]{Outline0.2.2.7}{SLURM Architecture}{Outline0.2}% 4
+\BOOKMARK [3][]{Outline0.2.3.11}{LAYOUTS Framework}{Outline0.2}% 5
+\BOOKMARK [2][]{Outline0.3}{Resource Selection}{}% 6
+\BOOKMARK [3][]{Outline0.3.1.16}{LAYOUTS based consumable resource selection}{Outline0.3}% 7
+\BOOKMARK [3][]{Outline0.3.2.21}{Multi-parameter resource selection}{Outline0.3}% 8
+\BOOKMARK [2][]{Outline0.4}{Experiments \046 Performance Evaluation}{}% 9
+\BOOKMARK [3][]{Outline0.4.1.26}{Cons\137res\137layout vs Cons\137res Analysis}{Outline0.4}% 10
+\BOOKMARK [3][]{Outline0.4.2.32}{Multi-parameter vs Cons\137res Analysis}{Outline0.4}% 11
+\BOOKMARK [2][]{Outline0.5}{Conclusion \046 FW}{}% 12
+\BOOKMARK [3][]{Outline0.5.1.38}{Conclusion}{Outline0.5}% 13
+\BOOKMARK [3][]{Outline0.5.2.42}{Future Work}{Outline0.5}% 14

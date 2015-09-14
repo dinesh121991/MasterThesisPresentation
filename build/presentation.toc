@@ -1,0 +1,15 @@
+\beamer@endinputifotherversion {3.24pt}
+\beamer@sectionintoc {1}{Introduction \& Motivation}{2}{0}{1}
+\beamer@sectionintoc {2}{Background }{6}{0}{2}
+\beamer@subsectionintoc {2}{1}{Related Works}{6}{0}{2}
+\beamer@subsectionintoc {2}{2}{SLURM Architecture}{7}{0}{2}
+\beamer@subsectionintoc {2}{3}{LAYOUTS Framework}{11}{0}{2}
+\beamer@sectionintoc {3}{Resource Selection}{16}{0}{3}
+\beamer@subsectionintoc {3}{1}{LAYOUTS based consumable resource selection}{16}{0}{3}
+\beamer@subsectionintoc {3}{2}{Multi-parameter resource selection}{21}{0}{3}
+\beamer@sectionintoc {4}{Experiments \& Performance Evaluation}{26}{0}{4}
+\beamer@subsectionintoc {4}{1}{Cons\_res\_layout vs Cons\_res Analysis}{26}{0}{4}
+\beamer@subsectionintoc {4}{2}{Multi-parameter vs Cons\_res Analysis}{32}{0}{4}
+\beamer@sectionintoc {5}{Conclusion \& FW}{38}{0}{5}
+\beamer@subsectionintoc {5}{1}{Conclusion}{38}{0}{5}
+\beamer@subsectionintoc {5}{2}{Future Work}{42}{0}{5}
